@@ -17,6 +17,7 @@ import { MyDashboardComponent } from './components/shared/my-dashboard/my-dashbo
 import { DashboardSelectedComponent } from './components/shared/dashboard-selected/dashboard-selected.component';
 import { ClientListComponent } from './components/shared/client-list/client-list.component';
 
+
 // Extern components
 import { EditableTableModule } from 'ng-editable-table/editable-table/editable-table.module';
 
