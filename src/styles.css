@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+.pacifico{
+    font-family: "Pacifico";
+    }
+    .lato{
+      font-family: "Lato";
+    }
+    .midium-text{
+      font-size: 1.5em;
+    }
+    .larger-text{
+      font-size: 3em;
+    }
+    .fullscreen{
+      width: 50%;
+    }
+
+

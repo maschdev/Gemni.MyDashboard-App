@@ -1,0 +1,49 @@
+
+<table class="table is-striped" *ngIf="clientlist?.length > 0">
+  <thead>
+    <tr class="has-text-centered">
+      <!-- <th>#</th> -->
+      <th><abbr title="Cliente">Cliente</abbr></th>
+      <th><abbr title="Documento">Documento</abbr></th>
+      <th colspan=3></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of clientlist">
+      <!-- <td class="has-text-centered">{{ item.Id }}</td> -->
+      <td class="has-text-centered">{{ item.Name }}</td>
+      <td class="has-text-centered">{{ item.Document }}</td>
+      <td>
+          <button (click)="reports(item.Id)" class="button is-warning" title="Dashboards">
+              <i class="fa fa-wpforms" aria-hidden="true"></i>
+          </button>
+      </td>
+      <td>
+          <button (click)="edit(item.Id)" class="button is-info" title="Alterar">
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          </button>
+      </td>
+      <td>
+          <button (click)="showModal(item)" class="button is-danger" title="Exlcuir">
+              <i class="fa fa-eraser" aria-hidden="true"></i>
+          </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="modal" id="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Excliur Resgistro</p>
+        <button (click)="closeModal()" class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        Deseja excluir o cliente <strong> {{ name }} </strong> ?
+      </section>
+      <footer class="modal-card-foot">
+        <button (click)="delete(id)" class="button">OK</button>
+      </footer>
+    </div>
+  </div>

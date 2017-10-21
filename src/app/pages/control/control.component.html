@@ -1,0 +1,105 @@
+<app-headbar></app-headbar>
+
+<section class="section">
+  <div class="container">
+    <div class="heading animated fadeIn">
+      <h1 class="title">Control</h1>
+    </div>
+    <hr>
+
+    <div class="notification is-danger" *ngIf="emptyfields == true">
+        <button class="delete" (click)="resetError()"></button>
+          <strong class="lato"> Preencher um campo obrigatório </strong>
+      </div>
+
+    <form [formGroup]="form">
+
+    <div class="columns">
+
+      <div class="column is-half is-three-quarters">
+
+          <div class="columns">
+
+            <!-- <div class="column" >
+              <p class="control">
+                <input class="input" type="number" placeholder="Id" formControlName="id">
+                <span class="tag is-danger" *ngIf="!form.controls.id.valid && !form.controls.id.pristine">Id inválido</span>
+              </p>
+            </div> -->
+
+            <div class="column">
+              <p class="control" id="reportControl">
+                <input class="input" type="text" placeholder="Relatório" formControlName="report" [ngClass]=" {'is-danger': (!form.controls.report.valid && !form.controls.report.pristine) }">
+                <span class="tag is-danger" *ngIf="!form.controls.report.valid && !form.controls.report.pristine">Relatório inválido</span>
+              </p>
+            </div>
+
+            <div class="column">
+              <p class="control">
+                <input class="input" type="text" placeholder="CPF / CNPJ" formControlName="document">
+                <span class="tag is-danger" *ngIf="!form.controls.document.valid && !form.controls.document.pristine">CPF / CNPJ inválido</span>
+              </p>
+            </div>
+
+            <div class="column">
+              <p class="control">
+                <input class="input" type="text" placeholder="Cliente" formControlName="client">
+                <span class="tag is-danger" *ngIf="!form.controls.client.valid && !form.controls.client.pristine">Cliente inválido</span>
+              </p>
+            </div>
+
+          </div>
+      </div>
+
+      <div class="column">
+
+        <div class="columns">
+
+            <div class="column" style="text-align: right">
+                <p>
+                    <button class="button is-warning" type="reset">
+                        <span class="icon is-small">
+                            <i class="fa fa-paint-brush"></i>
+                          </span>
+                          <span>Limpar</span>
+                        </button>
+                </p>
+              </div>
+
+              <div class="column">
+                <p>
+                    <button type="submit"  class="button is-info" (click)="search()"[disabled]="!form.valid">
+                        <span class="icon is-small">
+                            <i class="fa fa-search"></i>
+                          </span>
+                          <span>Pesquisar</span>
+                  </button>
+                </p>
+              </div>
+
+              <div class="column">
+                  <p>
+                      <button type="submit"  class="button is-success" (click)="register()">
+                          <span class="icon is-small">
+                              <i class="fa fa-address-book-o"></i>
+                            </span>
+                            <span>Novo Cliente</span>
+                    </button>
+                  </p>
+                </div>
+
+        </div>
+      </div>
+
+    </div>
+  </form>
+
+    <br>
+    <app-client-list [clients]="clientlist"> </app-client-list>
+
+  </div>
+</section>
+<app-footer></app-footer>
+
+
+

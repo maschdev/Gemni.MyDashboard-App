@@ -1,0 +1,70 @@
+<app-headbar></app-headbar>
+<section class="section">
+  <div class="container">
+    <div class="heading animated fadeIn">
+      <h1 class="title">Cadastro</h1>
+    </div>
+    <hr>
+
+    <div class="columns">
+      <div class="column is-half is-offset-one-quarter">  
+
+          <div class="notification is-danger" *ngIf="errors.length > 0" >
+              <ul>
+                  <li *ngFor="let error of errors" >{{error.message}}</li>
+              </ul>
+            </div> 
+        
+        <form [formGroup]="form">
+          <label class="label">Nome</label>
+            <p class="field control has-icons-left" id="firstnameControl">
+                <input class="input is-midium" [ngClass]="{'is-danger': (!form.controls.firstname.valid && !form.controls.firstname.pristine)}"
+                  type="text" formControlName="firstname">
+                <span class="icon is-small is-left"><i class="fa fa-user-o"></i></span>
+                <span class="tag is-danger" *ngIf="!form.controls.firstname.valid && !form.controls.firstname.pristine">Nome inválido</span>
+            </p>
+
+
+            <label class="label">Sobrenome</label>
+            <p class="field control has-icons-left" id="lastnameControl">
+                <input class="input is-midium" [ngClass]="{'is-danger': (!form.controls.lastname.valid && !form.controls.lastname.pristine)}"
+                  type="text" formControlName="lastname">
+                <span class="icon is-small is-left"><i class="fa fa-user-o"></i></span>
+                <span class="tag is-danger" *ngIf="!form.controls.lastname.valid && !form.controls.lastname.pristine">Sobrenome inválido</span>
+            </p>
+    
+          <label class="label">Documento</label>
+            <p class="field control has-icons-left" id="documentControl">
+                <input class="input is-midium" [ngClass]="{'is-danger': (!form.controls.document.valid && !form.controls.document.pristine)}"
+                  type="text" formControlName="document">
+                <span class="icon is-small is-left"><i class="fa fa-id-card-o"></i></span>
+                <span class="tag is-danger" *ngIf="!form.controls.document.valid && !form.controls.document.pristine">Documento inválido</span>
+            </p>
+      
+          <label class="label">E-mail</label>
+            <p class="field control has-icons-left" id="emailControl">
+                <input class="input is-midium" [ngClass]="{'is-danger': (!form.controls.email.valid && !form.controls.email.pristine)}"
+                  type="email" formControlName="email">
+                <span class="icon is-small is-left"><i class="fa fa-envelope-o"></i></span>
+                <span class="tag is-danger" *ngIf="!form.controls.email.valid && !form.controls.email.pristine">E-mail inválido</span>
+            </p>
+     
+          <label class="label">Telefone Contato</label>
+            <p class="field control has-icons-left" id="phoneControl">
+                <input class="input is-midium" [ngClass]="{'is-danger': (!form.controls.phone.valid && !form.controls.phone.pristine)}"
+                  type="text" formControlName="phone">
+                <span class="icon is-small is-left"><i class="fa fa-phone"></i></span>
+                <span class="tag is-danger" *ngIf="!form.controls.phone.valid && !form.controls.phone.pristine">Telefone inválido</span>
+            </p>
+            <br/>
+            <p>
+              <button (click)="submit()" class="button is-primary is-info" [disabled]="!form.valid">Registrar</button>
+            </p>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+<app-footer></app-footer>

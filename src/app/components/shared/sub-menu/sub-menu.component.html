@@ -1,0 +1,14 @@
+
+<div class="nav-right nav-menu">
+    <a class="nav-item">Bem vindo, {{user}}</a>
+  <a routerLink="/control" *ngIf="role != 2 " class="nav-item">Controle</a> 
+  <!-- <a routerLink="/" class="nav-item">Meu Perfil</a> -->
+  <span class="nav-item">
+      <a  (click)="logout()" class="button is-primary is-inverted">
+        <span class="icon">
+          <i class="fa fa-power-off"></i>
+        </span>
+  <span>&nbsp; Sair</span>
+  </a>
+  </span>
+</div>

@@ -1,0 +1,46 @@
+<app-headbar></app-headbar>
+
+<section class="section">
+  <div class="container">
+          <div class="level-left">
+              <div class="heading animated fadeIn">
+                  <h1 class="title">Cliente</h1>
+                </div>
+          </div>
+    <br>
+
+    <nav class="level">
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Nome</p>
+            <p class="title">{{ client }}</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Cpf/Cnpj</p>
+            <p class="title">{{ document }}</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">E-mail</p>
+            <p class="title">{{ email }}</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Relatório(s)</p>
+            <p class="title">{{ quantity }}</p>
+          </div>
+        </div>
+      </nav>
+
+    <hr>
+
+     <app-dashboard-list [id]="id"></app-dashboard-list> 
+
+  </div>
+</section>
+
+<app-footer></app-footer>

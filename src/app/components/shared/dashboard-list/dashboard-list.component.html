@@ -1,0 +1,74 @@
+
+<div class="columns">
+    <div class="column is-11"></div>
+  <div class="column is-one-quarter">
+        <button class="button is-primary" (click)="submit()" type="submit" >Salvar</button>
+    </div>
+  </div>
+
+<div class="container is-fluid">
+  <table class="table is-striped is-fullwidth">
+
+    <thead>
+      <tr>
+        <th *ngFor="let title of service.tableHeadersObjects">
+          <abbr title="{{title.content}}"> {{title.content}} </abbr>
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let row of service.tableRowsObjects" > 
+    
+        <td *ngFor="let cell of row.cells">
+
+          <span *ngIf="service.isEditing.indexOf(row) === -1 && service.checkTypeOf(cell.content) !== 'boolean' && row.cells.indexOf(cell) != 2">
+               {{ cell.content }}
+          </span>
+                    
+          <a (click)="redirect(cell.content)" *ngIf="row.cells.indexOf(cell) == 2" title="{{cell.content}}">
+            <span *ngIf="service.isEditing.indexOf(row) === -1 && service.checkTypeOf(cell.content) !== 'boolean' && row.cells.indexOf(cell) == 2">
+              {{ ellipsify(cell.content) }}
+            </span>
+          </a>
+
+          <div class="ui input" *ngIf="!(service.isEditing.indexOf(row) == -1) && service.checkTypeOf(cell.content) !== 'boolean'">
+            <input type="text" [(ngModel)]="cell.content" [name]="cell.content">
+          </div>
+        </td>
+                 
+        <td>
+            <button *ngIf="service.isEditing.indexOf(row) === -1 " (click)="service.editRow(row)">
+              <i class="fa fa-pencil-square-o"></i>
+            </button>
+            <button *ngIf="!(service.isEditing.indexOf(row) == -1)" (click)="service.saveRow(row)">
+              <i class="fa fa-check"></i>
+            </button>
+            <button *ngIf="service.isEditing.indexOf(row) === -1" (click)="service.deleteRow(row)">
+              <i class="fa fa-times"></i>
+            </button>
+          <button *ngIf="!(service.isEditing.indexOf(row) == -1) " (click)="service.cancelEdition(row)">
+            <i class="fa fa-times"></i>
+          </button>
+        </td>
+
+      </tr>
+    </tbody>
+
+    <tfoot>
+      <tr>
+        <th *ngFor="let title of service.tableHeadersObjects"></th>
+        <th>
+          <button (click)="service.addRow()">
+            <i class="fa fa-plus"></i>
+          </button>
+        </th>
+      </tr>
+    </tfoot>
+
+  </table>
+</div>
+
+
+
