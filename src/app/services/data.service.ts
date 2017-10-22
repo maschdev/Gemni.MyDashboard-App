@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Http, Response, Headers, ResponseOptions, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+//import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class DataService {
@@ -23,14 +23,7 @@ export class DataService {
 
   public result: any[];
 
-  constructor(
-    private http: Http
-     
-    // private requestOptions : RequestOptions ) 
-  )
-  {
-      
-  }
+  constructor(private http: Http){ }
   
   getCourses() {
     return this.http.get('https://abt-api.azurewebsites.net/api/courses')
@@ -44,6 +37,15 @@ export class DataService {
      return this.clientlist;
    };
 
+
+   getOptions(){
+    var token = localStorage.getItem('mydb.token');
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Authorization', `Bearer ${token}`);
+    let options = new RequestOptions({ headers: headers });
+    return options;
+   }
+
 /************************************************** Account **************************************************/ 
 
 authenticate(command: any) {
@@ -52,10 +54,17 @@ authenticate(command: any) {
   // let options = new RequestOptions({headers:headers});
   // return this.http.post(this.serviceUrl + 'v1/authenticate', dt, options).map((res: Response) => res.json());
 
-
   return this.http.post(this.serviceUrl + 'v1/authenticate', command).map((res: Response) => res.json());
-
 }
+
+// validateToken(token: string){
+
+//   if(token || token != ''){
+//     return true;
+//   }
+//   return false;
+
+// }
 
 /*************************************************************************************************************/ 
 /*
@@ -65,21 +74,29 @@ authenticate(command: any) {
 /************************************************** Dashboard **************************************************/ 
 
 createDashboards(command: any) {
-  this.http.post('http://localhost:52216/v1/dashboard', command,);
+    
+  let options = this.getOptions();  
+  this.http.post(this.serviceUrl + 'v1/dashboard', command);
 }
 
   getDashboard(id: string) {
-    return this.http.get('http://localhost:52216/v1/dashboard/'+ id)
+    
+    let options = this.getOptions();    
+    return this.http.get(this.serviceUrl + 'v1/dashboard/'+ id, options)
       .map((res: Response) => res.json());
   }
 
   getDashboardByUser(userid: string) {
-    return this.http.get('http://localhost:52216/v1/dashboarduser/'+ userid)
+
+    let options = this.getOptions();    
+    return this.http.get(this.serviceUrl + 'v1/dashboarduser/'+ userid, options)
       .map((res: Response) => res.json());
   }
 
   getDashboardByIdAndUser(id: string, userid: string) {
-    return this.http.get('http://localhost:52216/v1/dashboard/'+ id +'/' +userid)
+
+    let options = this.getOptions();
+    return this.http.get(this.serviceUrl + 'v1/dashboard/'+ id +'/' + userid, options)
       .map((res: Response) => res.json());
   }
 /***************************************************************************************************************/ 
@@ -88,31 +105,38 @@ createDashboards(command: any) {
  * 
 */
 /************************************************** Customer **************************************************/ 
-createUser(data: any) {
-  console.log(data);
-}
+// createUser(data: any) {
+//   console.log(data);
+// }
 
 createCustomer(command: any) {
+  
+let options = this.getOptions();
   return this.http
-    .post(this.serviceUrl + 'v1/customer', command)
+    .post(this.serviceUrl + 'v1/customer', command, options)
     .map((res: Response) =>   
       res.json());
-        //  .header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"));
 }
 
 updateCustomer(command: any) {
+
+  let options = this.getOptions();
   return this.http
-    .put(this.serviceUrl + 'v1/customer', command)
+    .put(this.serviceUrl + 'v1/customer', command, options)
     .map((res: Response) => res.json());
 }
 
 deleteCustomer(id: string) {
-  console.log(id);
-  //this.http.delete('http://localhost:52216/v1/customer',);
+
+  let options = this.getOptions();
+  this.http.delete(this.serviceUrl + 'v1/customer/'+ id, options)
+  .map((res: Response) => res.json());
 }
 
 getCustomer(id: string) {
-  return this.http.get('http://localhost:52216/v1/customer/'+ id)
+
+  let options = this.getOptions();
+  return this.http.get(this.serviceUrl + 'v1/customer/'+ id, options)
     .map((res: Response) => res.json());
 }
 
@@ -124,12 +148,16 @@ getCustomer(id: string) {
 /************************************************** User **************************************************/ 
 
 getUserByFilter(id: string, document: string, dashboardname: string, username: string) {
-  return this.http.get('http://localhost:52216/v1/user/'+ id + '/' + document + '/' + dashboardname + '/' + username)
+
+  let options = this.getOptions();
+  return this.http.get(this.serviceUrl + 'v1/user/'+ id + '/' + document + '/' + dashboardname + '/' + username, options)
     .map((res: Response) => res.json());
 }
 
   getUser(id: string) {
-    return this.http.get('http://localhost:52216/v1/user/'+ id)
+
+    let options = this.getOptions();
+    return this.http.get(this.serviceUrl + 'v1/user/'+ id, options)
       .map((res: Response) => res.json());
   }
 

@@ -22,18 +22,41 @@ export class ClientListComponent implements OnInit {
 
   @Input() clients: any[];
 
-  constructor(private ui: Ui, private router: Router, private ds: DataService) { }
+  constructor(private ui: Ui, private router: Router, private ds: DataService) {
+
+
+   
+    
+    var user = JSON.parse(localStorage.getItem('mydb.user'));
+    var role = JSON.parse(localStorage.getItem('mydb.role'));
+
+    if(localStorage['mydb.user'] == undefined ){
+      this.router.navigateByUrl('/logon');
+    }
+        if(role != 1){
+          this.router.navigateByUrl('/logon');
+          localStorage.clear();
+        }
+
+   }
 
   ngOnInit() {
     this.clientlist = this.clients;
   }
 
   reports(id) {
-    this.router.navigate(['/clientdashboards', id]);
+    localStorage.setItem('mydb.id', id);
+    //this.router.navigate(['/clientdashboards', id]);
+    this.router.navigateByUrl('/clientdashboards');
+    
   }
 
   edit(id) {
-    this.router.navigate(['/register', id]);
+
+    localStorage.setItem('mydb.id', id);
+    //this.router.navigate(['/register', id]);
+    this.router.navigateByUrl('/register');
+    
   }
 
   showModal(element) {

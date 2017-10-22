@@ -17,12 +17,10 @@ import { MyDashboardComponent } from './components/shared/my-dashboard/my-dashbo
 import { DashboardSelectedComponent } from './components/shared/dashboard-selected/dashboard-selected.component';
 import { ClientListComponent } from './components/shared/client-list/client-list.component';
 
-
 // Extern components
 import { EditableTableModule } from 'ng-editable-table/editable-table/editable-table.module';
 
 //Pages
-import { SignUpPageComponent } from './pages/signup/signup.component';
 import { LoginPageComponent } from './pages/login/login.component';
 import { HomePageComponent } from './pages/home/home.component';
 import { ControlComponent } from './pages/control/control.component';
@@ -38,7 +36,6 @@ import { PowerBiPipe } from './pipes/powerbi.pipe';
 @NgModule({
   declarations: [
     AppComponent,
-    SignUpPageComponent,
     LoginPageComponent,
     HomePageComponent,
     FooterComponent,
