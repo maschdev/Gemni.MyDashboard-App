@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { CustomValidator } from '../../validators/custom.validator';
-import { ActivatedRoute } from '@angular/router';
+import {  Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 //import { Ui } from '../../utils/ui';
 
@@ -15,7 +15,7 @@ import { DataService } from '../../services/data.service';
 export class RegisterComponent implements OnInit {
 
   public form: FormGroup;
-  public id: number;
+  public id: string;
   public name: string;
   public document: string;
   public phone: string;
@@ -24,7 +24,20 @@ export class RegisterComponent implements OnInit {
 
   private sub: any;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private ds: DataService) { 
+  constructor(private fb: FormBuilder,  private router: Router, private ds: DataService) { 
+    
+    var user = JSON.parse(localStorage.getItem('mydb.user'));
+    var role = JSON.parse(localStorage.getItem('mydb.role'));
+
+    if(localStorage['mydb.user'] == undefined ){
+      this.router.navigateByUrl('/logon');
+    }
+
+        if( role != 1){
+          this.router.navigateByUrl('/logon');
+          localStorage.clear();
+        }
+
     this.form = this.fb.group({
       
       id:[0],
@@ -71,21 +84,16 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
 
     // recupero o Id no parametro e pesquiso os dashboards do cliente
-    this.sub = this.route.params.subscribe(params => {
-    
-      if(params['id'] != undefined && params['id'] > 0) 
-        {
-            this.id = +params['id'];
+          this.id = localStorage.getItem('mydb.id');
 
+          if(this.id != null || this.id != undefined){
             alert('pesquisar o client e retornar os dados: ' + this.id);
             
             this.form.controls["id"].setValue(this.id);
             this.form.controls["firstname"].setValue("Rapha");
             this.form.controls["document"].setValue("11122233344");
             this.form.controls["email"].setValue("caio@caio.com");
-            this.form.controls["phone"].setValue("1136010301");
-        }     
-    });
+          }
   }
 
   submit(){
@@ -106,6 +114,10 @@ export class RegisterComponent implements OnInit {
         this.errors = JSON.parse(error._body).errors;
        });
       }
+  }
+
+  reset(){
+    localStorage.removeItem("mydb.id");
   }
 
 }

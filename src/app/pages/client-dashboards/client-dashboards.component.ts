@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { Ui } from '../../utils/ui';
 
@@ -8,7 +8,7 @@ import { Ui } from '../../utils/ui';
   templateUrl: './client-dashboards.component.html',
   providers: [Ui, DataService]
 })
-export class ClientDashboardsComponent implements OnInit, OnDestroy {
+export class ClientDashboardsComponent implements OnInit {
 
   public id: any;
   private sub: any;
@@ -18,27 +18,28 @@ export class ClientDashboardsComponent implements OnInit, OnDestroy {
   public quantity: number;
   public email: string;
 
-  constructor(private route: ActivatedRoute, private ui: Ui,  ds: DataService) { }
+  constructor( private router: Router, private ui: Ui,  ds: DataService) {
+
+    var user = JSON.parse(localStorage.getItem('mydb.user'));
+    var role = JSON.parse(localStorage.getItem('mydb.role'));
+
+    if(localStorage['mydb.user'] == undefined ){
+      this.router.navigateByUrl('/logon');
+    }
+
+    if( role != 1){
+          this.router.navigateByUrl('/logon');
+          localStorage.clear();
+        }
+
+       
+
+   }
 
   ngOnInit() {
 
-    this.sub = this.route.params.subscribe(params => {
-
-      // recupero o Id no parametro e pesquiso os dashboards do cliente
-      this.id = +params['id'];
-
-      //alert('pesquisar o client e retornar os dados');
-
-      this.client = 'Caio';
-      this.document = '391.533.788-90';
-      this.email = 'caio@caio.com';
-      this.quantity = 7;
-
-    });
-  }
-
-  ngOnDestroy() {
-    this.sub.unsubscribe();
+    
+    
   }
 
 }

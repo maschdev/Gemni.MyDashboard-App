@@ -22,10 +22,10 @@ public role: string = '';
 
   }
 
-  ngOnInit() {
-  }
+ngOnInit() {  }
 
 logout(){
+
   localStorage.clear();
   this.router.navigateByUrl('/logon');
 }

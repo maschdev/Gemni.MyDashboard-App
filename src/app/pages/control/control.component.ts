@@ -85,23 +85,14 @@ export class ControlComponent implements OnInit {
 
       this.emptyfields = false;
 
-      //alert('buscar relatório');
-
-      //this.ds.getClients(this.id, this.client, this.document, this.report)
-
-      // this.ds
-      // .getDashboards().subscribe(result => {
-      //   console.log(result);
-      // }
-      // , error => {
-      //   console.log(error);
-      // });
-
+      alert('buscar relatório');
+      
     }
 
   }
   
   register(){
+    localStorage.removeItem("mydb.id");
     this.router.navigate(['/register']);
     }
 

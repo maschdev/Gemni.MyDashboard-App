@@ -54,6 +54,24 @@ export class LoginPageComponent implements OnInit {
 
   }
 
+// checkToken(){
+  
+//   var token = localStorage.getItem('mydb.token');
+//   if(this.ds.validateToken(token)){
+    
+//     var role = localStorage.getItem('mydb.role');
+//     if(role == '2')
+//     {
+//       this.router.navigateByUrl('/home');
+//     }
+//     else
+//     {
+//       this.router.navigateByUrl('/control');
+//     }
+//   }
+
+// }
+
   ngOnInit() {
   }
 
@@ -97,4 +115,6 @@ export class LoginPageComponent implements OnInit {
         });
 
   }
+
+  
 }
