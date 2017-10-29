@@ -1,4 +1,4 @@
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <app-headbar></app-headbar>
 <section class="section">
   <div class="container">
@@ -7,28 +7,34 @@
     </div>
     <br>
     <nav class="level">
-        <div class="select level-left" >
-            
-          <select (change)="valueChange($event)">
-                <option *ngFor="let dashboard of dashboards" [ngValue]="dashboard" [value]="dashboard.id">
-                  {{ dashboard.name }}
-                </option>
-              </select> 
+      <div class="select level-left">
 
-          </div>
+        <select (change)="valueChange($event)">
+          <option *ngFor="let dashboard of dashboards" [ngValue]="dashboard" [value]="dashboard.id">
+            {{ dashboard.name }}
+          </option>
+        </select>
+
+      </div>
+
+      <div class="has-text-centered level-right">
         
-        <div class="has-text-centered level-right">
         <p id="pphName" class="title lato" style="height: 30px;"></p>
 
-        </div>
-    </nav>   
+      </div>
+    </nav>
     <hr>
 
-    <div class="embed-responsive embed-responsive-16by9"> 
-      <app-dashboard-selected [selectedId] ="idDashboard" ></app-dashboard-selected>
-    </div>
-  
 
   </div>
 </section>
+
+<div class="embed-responsive embed-responsive-16by9">
+
+  <app-dashboard-selected [selectedId]="idDashboard"></app-dashboard-selected>
+
+</div>
+
+
+
 <app-footer></app-footer>

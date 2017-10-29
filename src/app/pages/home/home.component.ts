@@ -1,54 +1,61 @@
 import { Component, OnInit } from '@angular/core';
-import {  Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { DataService } from './../../services/data.service';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html'
+  templateUrl: './home.component.html',
+  providers: [DataService]
 })
 export class HomePageComponent implements OnInit {
 
-public dashboards: any[];
-public idDashboard: number;
+  public dashboards: any[];
+  public idDashboard: any;
 
-private sub: any;
-public id: any;
+  constructor(private router: Router, private ds: DataService){
 
-  constructor( private router: Router) {
+    var user = JSON.parse(localStorage.getItem('mydb.user'));
 
-        if(localStorage['mydb.user'] == undefined ){
-          this.router.navigateByUrl('/logon');
-        }
+    if (user == undefined || user.profile != 2) {
 
-   }
+      this.router.navigateByUrl('/logon');
+    }
 
-  ngOnInit() {
-    
-    
-    // this.sub = this.route.params.subscribe(params => {
-    //         // recupero o Id no parametro e pesquiso os dashboards do cliente
-    //         this.id = + params['id'];
+    this.dashboards = [];
 
-    //       });
-
-           alert(JSON.parse(localStorage.getItem('mydb.user')).id);
-
-     this.dashboards = [
-         new Dashboard(1, 'Movimentação', 1),
-         new Dashboard(2, 'Estoque', 3),
-         new Dashboard(3, 'Perda', 2)
-     ];
-
-    var dashboard = this.dashboards.find(db => db.position == 1);
-
-    document.getElementById("pphName").innerHTML = dashboard.name;
-    this.idDashboard = dashboard.id;
-
-
-    this.dashboards.sort((a, b) => a.position - b.position);
   }
 
-  valueChange(event: any){
-    
+  ngOnInit() {
+
+    var user = JSON.parse(localStorage['mydb.user']);
+
+    this.ds
+      .getDashboardByUser(user.id)
+      .subscribe(result => {
+
+        result.data.dashboards.forEach(dashboard => {
+
+          this.dashboards.push({
+            id: dashboard.id,
+            name: dashboard.title,
+            position: dashboard.order
+          });
+
+        });
+
+        var dashboard = this.dashboards.find(db => db.position == 1);
+
+        document.getElementById("pphName").innerHTML = dashboard.name;
+        this.idDashboard = dashboard.id;
+
+        this.dashboards.sort((a, b) => a.position - b.position);
+
+      });
+
+  }
+
+  valueChange(event: any) {
+
     var id = event.target.value;
     var dashboard = this.dashboards.find(p => p.id == id);
     document.getElementById("pphName").innerHTML = dashboard.name;
@@ -57,15 +64,3 @@ public id: any;
   }
 
 }
-
- class Dashboard {
-  public id: number;
-  public name: string;
-  public position: number;
-
-  constructor(private theId: number, private theName: string, private thePosition: number) {
-    this.id = this.theId;
-    this.name = this.theName;
-    this.position = this.thePosition;
-  }
-};

@@ -8,24 +8,17 @@
     <hr>
 
     <div class="notification is-danger" *ngIf="emptyfields == true">
-        <button class="delete" (click)="resetError()"></button>
-          <strong class="lato"> Preencher um campo obrigatório </strong>
-      </div>
+      <button class="delete" (click)="resetError()"></button>
+      <strong class="lato"> Preencher um campo obrigatório </strong>
+    </div>
 
     <form [formGroup]="form">
 
-    <div class="columns">
+      <div class="columns">
 
-      <div class="column is-half is-three-quarters">
+        <div class="column is-half is-three-quarters">
 
           <div class="columns">
-
-            <!-- <div class="column" >
-              <p class="control">
-                <input class="input" type="number" placeholder="Id" formControlName="id">
-                <span class="tag is-danger" *ngIf="!form.controls.id.valid && !form.controls.id.pristine">Id inválido</span>
-              </p>
-            </div> -->
 
             <div class="column">
               <p class="control" id="reportControl">
@@ -49,50 +42,50 @@
             </div>
 
           </div>
-      </div>
+        </div>
 
-      <div class="column">
+        <div class="column">
 
-        <div class="columns">
+          <div class="columns">
 
             <div class="column" style="text-align: right">
-                <p>
-                    <button class="button is-warning" type="reset" (click)="reset()">
-                        <span class="icon is-small">
-                            <i class="fa fa-paint-brush"></i>
-                          </span>
-                          <span>Limpar</span>
-                        </button>
-                </p>
-              </div>
+              <p>
+                <button class="button is-warning" type="reset" (click)="reset()">
+                  <span class="icon is-small">
+                    <i class="fa fa-paint-brush"></i>
+                  </span>
+                  <span>Limpar</span>
+                </button>
+              </p>
+            </div>
 
-              <div class="column">
-                <p>
-                    <button type="submit"  class="button is-info" (click)="search()"[disabled]="!form.valid">
-                        <span class="icon is-small">
-                            <i class="fa fa-search"></i>
-                          </span>
-                          <span>Pesquisar</span>
-                  </button>
-                </p>
-              </div>
+            <div class="column">
+              <p>
+                <button type="submit" class="button is-info" (click)="search()" [disabled]="!form.valid">
+                  <span class="icon is-small">
+                    <i class="fa fa-search"></i>
+                  </span>
+                  <span>Pesquisar</span>
+                </button>
+              </p>
+            </div>
 
-              <div class="column">
-                  <p>
-                      <button type="submit"  class="button is-success" (click)="register()">
-                          <span class="icon is-small">
-                              <i class="fa fa-address-book-o"></i>
-                            </span>
-                            <span>Novo Cliente</span>
-                    </button>
-                  </p>
-                </div>
+            <div class="column">
+              <p>
+                <button type="submit" class="button is-success" (click)="register()">
+                  <span class="icon is-small">
+                    <i class="fa fa-address-book-o"></i>
+                  </span>
+                  <span>Novo Cliente</span>
+                </button>
+              </p>
+            </div>
 
+          </div>
         </div>
-      </div>
 
-    </div>
-  </form>
+      </div>
+    </form>
 
     <br>
     <app-client-list [clients]="clientlist"> </app-client-list>
@@ -100,6 +93,3 @@
   </div>
 </section>
 <app-footer></app-footer>
-
-
-

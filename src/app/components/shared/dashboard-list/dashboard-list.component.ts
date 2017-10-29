@@ -1,75 +1,118 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { EditableTableService } from 'ng-editable-table/editable-table/editable-table.service';
+import { Router } from '@angular/router';
+import { DataService } from 'app/services/data.service';
+
 
 @Component({
   selector: 'app-dashboard-list',
-  templateUrl: './dashboard-list.component.html'
+  templateUrl: './dashboard-list.component.html',
+  providers: [DataService]
 })
 
 export class DashboardListComponent implements OnInit {
 
-  @Input() id: number;
-  
+  public id: any;
   public tableHeaders: any[];
   public tableRowsWithId: any[];
   public dataType: any[];
+  public errors: any[] = [];
 
-  constructor(private service: EditableTableService ) { }
+  constructor(
+    private service: EditableTableService,
+    private router: Router,
+    private ds: DataService) {
+
+    var user = JSON.parse(localStorage.getItem('mydb.user'));
+    var role = JSON.parse(localStorage.getItem('mydb.role'));
+
+    if (user && role != 1) {
+      this.router.navigateByUrl('/logon');
+      localStorage.clear();
+    }
+
+    this.id = localStorage.getItem('mydb.id');
+
+    if (this.id) {
+      localStorage.removeItem('mydb.id');
+    }
+    else {
+      this.router.navigateByUrl('/control');
+      alert("Realiza a pesquisa novamente");
+    }
+
+    this.tableRowsWithId = []; 
+  }
 
   ngOnInit() {
 
-    alert("Pesquisar na base e trazer os relatórios do userID: "+ this.id);
-    
-    this.dataType = ['int','int', 'string', 'string'];
-    var link = 'https://app.powerbi.com/view?r=eyJrIjoiNWYyMWExNTMtYWIwMy00MGVkLWI3OTItZTRiNTdmOTNkNWQ0IiwidCI6ImFjNTAxNjA3LWJmN2MtNDk2NC04MjY1LWMxMjZmNzg1ZmU4ZSJ9';
+    this.dataType = ['string', 'int', 'string', 'string'];
     this.tableHeaders = ['Ordenação', 'Relatório', 'Url'];
 
-    this.tableRowsWithId = [
-      [11, 1, 'Estoque', link ],
-      [22, 2, 'Perdas', link ],
-      [33, 3, 'Movimentação', link ]
-    ];
+    if (this.id) {
 
-    this.service.createTableWithIds(this.tableHeaders, this.tableRowsWithId, this.dataType);
+      this.ds
+        .getDashboardByClient(this.id)
+        .subscribe(result => {
+
+          if (result.data.dashboards.length > 0) {
+
+            this.tableRowsWithId = new Array(result.data.dashboards.length)
+
+            for (var i = 0; i < result.data.dashboards.length; i++) {
+
+              this.tableRowsWithId[i] = new Array(4);
+              this.tableRowsWithId[i][0] = result.data.dashboards[i].id;
+              this.tableRowsWithId[i][1] = +result.data.dashboards[i].order;
+              this.tableRowsWithId[i][2] = result.data.dashboards[i].title;
+              this.tableRowsWithId[i][3] = result.data.dashboards[i].url;
+            }
+          }
+
+          this.service.tableRowsObjects = [];
+          this.service.tableHeadersObjects = [];
+
+          this.service.createTableWithIds(this.tableHeaders, this.tableRowsWithId, this.dataType);
+        });
+    }
+  
   }
 
-  submit(){
-    var dashboards: Dashboard[] = [];
+  submit() {
+
+    var dashboards = [];
 
     this.service.tableRowsObjects.forEach(row => {
-      dashboards.push(new Dashboard(
-                        row.id == undefined ? 0 : row.id, 
-                        row.cells[0].content, 
-                        row.cells[1].content, 
-                        row.cells[2].content));
-    });
-    
-    alert("Chamar o serviço de Salvar Relatorios do usuario: IdUser e relatórios");
-    
 
+      var rowId = row.id == undefined ? '0' : row.id.toString();
+
+      dashboards.push({
+        id: rowId,
+        order: row.cells[0].content.toString(),
+        title: row.cells[1].content,
+        url: row.cells[2].content,
+        customerId: this.id
+      });
+
+    });
+
+    this.ds
+      .createDashboards(dashboards)
+      .subscribe(result => {
+        alert('Mensagem sucesso');
+      },
+      error => {
+        this.errors = JSON.parse(error._body).errors;
+        console.log(this.errors);
+      });
   }
 
   redirect(url) {
     window.open(url);
   };
 
-  ellipsify (str) {
+  ellipsify(str) {
     return str.length > 20 ? (str.substring(0, 30) + '...') : str;
   };
-  
+
 }
-
-
-class Dashboard {
-  public id: number;
-  public position: number;
-  public name: string;
-  public url: string;
-
-  constructor(private theId: number, private thePosition: number, private theName: string, private theUrl: string) {
-    this.id = this.theId;
-    this.position = this.thePosition;
-    this.name = this.theName;
-    this.url = this.theUrl;
-  }
-};
