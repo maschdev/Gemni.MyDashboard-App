@@ -8,26 +8,24 @@ import { Router } from '@angular/router';
 })
 export class SubMenuComponent implements OnInit {
 
-public user: string = '';
-public role: string = '';
+  public user: string = '';
+  public role: string = '';
 
-  constructor(private router: Router) { 
-    
+  constructor(private router: Router) {
+
     var user = JSON.parse(localStorage.getItem('mydb.user'));
 
-    if(user){
-        this.user = user.name;
-        this.role = JSON.parse(localStorage.getItem('mydb.role'));
+    if (user) {
+      this.user = user.name;
+      this.role = JSON.parse(localStorage.getItem('mydb.role'));
     }
 
   }
 
-ngOnInit() {  }
+  ngOnInit() { }
 
-logout(){
-
-  localStorage.clear();
-  this.router.navigateByUrl('/logon');
-}
-
+  logout() {
+    localStorage.clear();
+    this.router.navigateByUrl('/logon');
+  }
 }

@@ -23,19 +23,22 @@ export class ControlComponent implements OnInit {
   public form: FormGroup;
   public emptyfields: boolean = false;
 
+
   constructor(
     private ui: Ui,
     private ds: DataService,
     private fb: FormBuilder,
     private router: Router) {
 
-      var user = JSON.parse(localStorage.getItem('mydb.user'));
-      var role = JSON.parse(localStorage.getItem('mydb.role'));
+    this.clientlist = [];
 
-          if(user && role != 1){
-            this.router.navigateByUrl('/logon');
-            localStorage.clear();
-          }
+    var user = JSON.parse(localStorage.getItem('mydb.user'));
+    var role = JSON.parse(localStorage.getItem('mydb.role'));
+
+    if (user && role != 1) {
+      this.router.navigateByUrl('/logon');
+      localStorage.clear();
+    }
 
     this.form = this.fb.group({
 
@@ -60,41 +63,52 @@ export class ControlComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-
-    this.clientlist = [{
-      Id: 1,
-      Name: "Caio",
-      Document: "391.533.788-90",
-      Report: "Movimento"
-    },
-    {
-      Id: 2,
-      Name: "Rapha",
-      Document: "421.533.788-90",
-      Report: "Estoque"
-    }];
-  }
+  ngOnInit() { }
 
   search() {
+
+
+
     if ((this.form.value.id == "" || this.form.value.id == null) && this.form.value.client == "" && this.form.value.report == "" && this.form.value.document == "") {
       this.emptyfields = true;
       return false;
     }
     else {
-
-      this.emptyfields = false;
-
-      alert('buscar relatório');
       
+      this.emptyfields = false;
+      var _document = this.form.value.document == '' ? null : this.form.value.document;
+      var _report = this.form.value.report == '' ? null : this.form.value.report;
+      var _client = this.form.value.client == '' ? null : this.form.value.client;
+
+      this.ds.getUserByFilter(_document, _report, _client)
+        .subscribe(result => {
+          if (result.data.users.length >= 1) {
+
+            if(this.clientlist.length > 0)
+            {
+              this.clientlist = [];              
+            }
+
+            result.data.users.forEach(user => {
+              this.clientlist.push({
+                Id: user.id,
+                Name: user.name,
+                Document: user.document
+              });
+
+            });
+          }
+
+        });
+
     }
 
   }
-  
-  register(){
+
+  register() {
     localStorage.removeItem("mydb.id");
     this.router.navigate(['/register']);
-    }
+  }
 
   resetError() {
     this.emptyfields = false;
