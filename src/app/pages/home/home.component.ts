@@ -27,28 +27,34 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit() {
 
-    var user = JSON.parse(localStorage['mydb.user']);
+    let user = JSON.parse(localStorage['mydb.user']);
 
     this.ds
       .getDashboardByUser(user.id)
       .subscribe(result => {
 
-        result.data.dashboards.forEach(dashboard => {
+        if(result.data.dashboards.length > 0) {
 
-          this.dashboards.push({
-            id: dashboard.id,
-            name: dashboard.title,
-            position: dashboard.order
+          result.data.dashboards.forEach(dashboard => {
+
+            this.dashboards.push({
+              id: dashboard.id,
+              name: dashboard.title,
+              position: dashboard.order
+            });
+
           });
 
-        });
+          let dashboard = this.dashboards.find(db => db.position == 1);
 
-        var dashboard = this.dashboards.find(db => db.position == 1);
-
-        document.getElementById("pphName").innerHTML = dashboard.name;
-        this.idDashboard = dashboard.id;
-
-        this.dashboards.sort((a, b) => a.position - b.position);
+          document.getElementById("pphName").innerHTML = dashboard.name;
+          this.idDashboard = dashboard.id;
+          this.dashboards.sort((a, b) => a.position - b.position);
+        }
+        else
+        {
+          document.getElementById("pphMsg").innerHTML = 'Nenhum dashaboard cadastrado';
+        }
 
       });
 
@@ -56,8 +62,8 @@ export class HomePageComponent implements OnInit {
 
   valueChange(event: any) {
 
-    var id = event.target.value;
-    var dashboard = this.dashboards.find(p => p.id == id);
+    let id = event.target.value;
+    let dashboard = this.dashboards.find(p => p.id == id);
     document.getElementById("pphName").innerHTML = dashboard.name;
 
     this.idDashboard = id;

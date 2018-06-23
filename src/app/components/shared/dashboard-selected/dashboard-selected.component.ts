@@ -10,8 +10,6 @@ import { DataService } from 'app/services/data.service';
 })
 export class DashboardSelectedComponent implements OnInit {
 
-  //@Input() selectedId: any;
-
   private _selectedId: any;
 
   @Input('selectedId')

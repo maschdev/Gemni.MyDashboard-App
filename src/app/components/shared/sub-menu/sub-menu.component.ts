@@ -14,7 +14,8 @@ export class SubMenuComponent implements OnInit {
   constructor(private router: Router) {
 
     var user = JSON.parse(localStorage.getItem('mydb.user'));
-
+  console.log(user);
+  
     if (user) {
       this.user = user.name;
       this.role = JSON.parse(localStorage.getItem('mydb.role'));

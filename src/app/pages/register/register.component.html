@@ -24,14 +24,22 @@
                 <span class="tag is-danger" *ngIf="!form.controls.firstname.valid && !form.controls.firstname.pristine">Nome inválido</span>
             </p>
 
-
-            <label class="label">Sobrenome</label>
-            <p class="field control has-icons-left" id="lastnameControl">
-                <input class="input is-midium" [ngClass]="{'is-danger': (!form.controls.lastname.valid && !form.controls.lastname.pristine)}"
-                  type="text" formControlName="lastname">
-                <span class="icon is-small is-left"><i class="fa fa-user-o"></i></span>
-                <span class="tag is-danger" *ngIf="!form.controls.lastname.valid && !form.controls.lastname.pristine">Sobrenome inválido</span>
+            <label class="label">Razão Social</label>
+            <p class="field control has-icons-left" id="corporatenameControl">
+                <input class="input is-midium" [ngClass]="{'is-danger': (!form.controls.corporatename.valid && !form.controls.corporatename.pristine)}"
+                  type="text" formControlName="corporatename">
+                <span class="icon is-small is-left"><i class="fa fa-registered"></i></span>
+                <span class="tag is-danger" *ngIf="!form.controls.corporatename.valid && !form.controls.corporatename.pristine">Razão social inválido</span>
             </p>
+
+            <label class="label">Nome Fantasia</label>
+            <p class="field control has-icons-left" id="tradenameControl">
+                <input class="input is-midium" [ngClass]="{'is-danger': (!form.controls.tradename.valid && !form.controls.tradename.pristine)}"
+                  type="text" formControlName="tradename">
+                <span class="icon is-small is-left"><i class="fa fa-globe"></i></span>
+                <span class="tag is-danger" *ngIf="!form.controls.tradename.valid && !form.controls.tradename.pristine">Nome fantasia inválido</span>
+            </p>
+
     
           <label class="label">Documento</label>
             <p class="field control has-icons-left" id="documentControl">

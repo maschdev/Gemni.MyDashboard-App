@@ -6,8 +6,9 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class DataService {
 
-  private serviceUrl: string = 'http://localhost:52216/';
-
+  //private serviceUrl: string = 'http://localhost:52216/';      // Dev
+   private serviceUrl: string = 'http://api.gemni.com.br:8080/'; // Prod
+  
   constructor(private http: Http) { }
 
   getOptions() {
@@ -25,20 +26,10 @@ export class DataService {
       .post(this.serviceUrl + 'v1/authenticate', command).map((res: Response) => res.json());
   }
 
-  // validateToken(token: string){
-
-  //   if(token || token != ''){
-  //     return true;
-  //   }
-  //   return false;
-
-  // }
 
   /*************************************************************************************************************/
-  /*
-   * 
-   * 
-  */
+  
+
   /************************************************** Dashboard **************************************************/
 
   createDashboards(command: any[]) {
@@ -81,10 +72,8 @@ export class DataService {
       .map((res: Response) => res.json());
   }
   /***************************************************************************************************************/
-  /*
-  * 
-  * 
- */
+ 
+
   /************************************************** Customer **************************************************/
   createCustomer(command: any) {
 
@@ -119,17 +108,15 @@ export class DataService {
   }
 
   /**********************************************************************************************************/
-  /*
-   * 
-   * 
-  */
+ 
+
   /************************************************** User **************************************************/
 
-  getUserByFilter(document: any, dashboardname: any, username: any) {
+  getUserByFilter(document: any, dashboardname: any, username: any, company: any) {
 
     let options = this.getOptions();
     return this.http
-      .get(this.serviceUrl + 'v1/user/' + document + '/' + dashboardname + '/' + username, options)
+      .get(this.serviceUrl + 'v1/user/' + document + '/' + dashboardname + '/' + username +'/'+ company, options)
       .map((res: Response) => res.json());
   }
 
@@ -149,8 +136,13 @@ export class DataService {
           .map((res: Response) => res.json());
       }
 
+  resetEmail(email: any) {
+      let options = this.getOptions();
+      return this.http
+        .get(this.serviceUrl + 'v1/useremail/' + email , options)
+        .map((res: Response) => res.json());
+      }
+
   /*********************************************************************************************************/
-
-
 }
 

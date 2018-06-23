@@ -1,9 +1,9 @@
 <section class="hero is-primary is-fullheight">
   <div class="hero-body">
     <div class="container has-text-centered">
-      <h1 class="title pacifico larger-text">
-        my dasboard
-      </h1>
+      
+        <img class="img-responsive" src="/assets/images/logon.png" width="220" height="28">
+        <br>
 
       <div class="columns">
         <div class="column is-half is-offset-one-quarter">
@@ -17,25 +17,24 @@
           <form [formGroup]="form">
             <p class="field control has-icons-left" id="usernameControl">
               <input class="input is-midium" [ngClass]="{'is-danger': (!form.controls.username.valid && !form.controls.username.pristine)}" (blur)="checkEmail()"
-                type="email" placeholder="E-mail" formControlName="username">
+                type="email" placeholder="E-mail" formControlName="username" />
               <span class="icon is-small is-left"><i class="fa fa-envelope"></i></span>
               <span class="tag is-danger" *ngIf="!form.controls.username.valid && !form.controls.username.pristine">Usuário inválido</span>
             </p>
             <p class="field control has-icons-left">
               <input class="input is-midium is-loading" [ngClass]="{'is-danger': (!form.controls.password.valid && !form.controls.password.pristine)}"
-                type="password" placeholder="Senha" formControlName="password">
+                type="password" placeholder="Senha" formControlName="password" />
               <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
               <span class="tag is-danger" *ngIf="!form.controls.password.valid && !form.controls.password.pristine">Senha inválida</span>
             </p>
             <p>
               <button (click)="submit()" class="button is-primary is-inverted is-outlined is-midium is-fullwidth" [disabled]="!form.valid">ENTRAR</button>
               <br>
-              <!-- <a class="button is-link is-fullwidth lato">Cadastrar nova senha</a> -->
             </p>
-            <hr>
-            <!-- <p>
-              <button (click)="showModal()" class="button is-link is-fullwidth lato">Termos de Uso</button>
-            </p> -->
+            <!-- <hr>
+             <p>
+              <button (click)="showModal()"  class="button is-primary is-inverted lato">Trocar a senha</button>
+            </p>   -->
 
           </form>
         </div>
@@ -43,19 +42,20 @@
     </div>
   </div>
 </section>
-
+<!-- 
 <div class="modal" id="modal">
   <div class="modal-background"></div>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Termos de Uso</p>
-      <button (click)="hideModal()" class="delete" aria-label="close"></button>
+      <p class="modal-card-title">Atualizar senha</p>
+      <button (click)="hideModal(0)" class="delete" aria-label="close"></button>
     </header>
     <section class="modal-card-body">
-      Conteúdo dos termos.
-    </section>
+      Preencha o seu e-mail para recuperar sua senha.
+     </section>
+     <input class="input is-midium" id="sendemail"  type="email" placeholder="E-mail" [(ngModel)]="email" />
     <footer class="modal-card-foot">
-      <button (click)="hideModal()" class="button">OK</button>
+      <button (click)="hideModal(1)" class="button is-success">Enviar</button>
     </footer>
   </div>
-</div>
+</div> -->

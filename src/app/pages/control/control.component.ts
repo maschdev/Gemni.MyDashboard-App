@@ -19,10 +19,10 @@ export class ControlComponent implements OnInit {
   public report: string;
   public client: string;
   public document: string;
+  public company: string;
 
   public form: FormGroup;
   public emptyfields: boolean = false;
-
 
   constructor(
     private ui: Ui,
@@ -56,6 +56,11 @@ export class ControlComponent implements OnInit {
         Validators.maxLength(18),
       ])],
 
+      company: ['', Validators.compose([
+        Validators.minLength(2),
+        Validators.maxLength(160)
+      ])],
+
       client: ['', Validators.compose([
         Validators.minLength(3)
       ])]
@@ -66,11 +71,14 @@ export class ControlComponent implements OnInit {
   ngOnInit() { }
 
   search() {
-
-
-
-    if ((this.form.value.id == "" || this.form.value.id == null) && this.form.value.client == "" && this.form.value.report == "" && this.form.value.document == "") {
-      this.emptyfields = true;
+    
+    if ((this.form.value.id == "" || this.form.value.id == null) && 
+        this.form.value.client == "" && 
+        this.form.value.report == "" && 
+        this.form.value.document == "" &&  
+        this.form.value.company == "" ) {
+      
+          this.emptyfields = true;
       return false;
     }
     else {
@@ -79,17 +87,20 @@ export class ControlComponent implements OnInit {
       var _document = this.form.value.document == '' ? null : this.form.value.document;
       var _report = this.form.value.report == '' ? null : this.form.value.report;
       var _client = this.form.value.client == '' ? null : this.form.value.client;
+      var _company = this.form.value.company == '' ? null : this.form.value.company;
 
-      this.ds.getUserByFilter(_document, _report, _client)
+      this.ds.getUserByFilter(_document, _report, _client, _company)
         .subscribe(result => {
+
           if (result.data.users.length >= 1) {
 
             if(this.clientlist.length > 0)
             {
-              this.clientlist = [];              
+              this.clientlist.pop();
             }
 
             result.data.users.forEach(user => {
+              
               this.clientlist.push({
                 Id: user.id,
                 Name: user.name,
