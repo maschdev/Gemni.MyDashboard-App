@@ -7,8 +7,9 @@
     </div> -->
     
     <nav class="level">
-      <div class="select level-left" *ngIf="dashboards.length > 0">
-        <select (change)="valueChange($event)">
+
+      <div class="select level-left">
+        <select id="active-panel" (change)="valueChange($event)" onchange="ga('send', 'event', 'visualization', 'panel', this.options[this.selectedIndex].text); console.log(this.options[this.selectedIndex].text); console.log('onchange on select panel dispair'); return false;">
           <option *ngFor="let dashboard of dashboards" [ngValue]="dashboard" [value]="dashboard.id">
             {{ dashboard.name }}
           </option>
@@ -18,14 +19,15 @@
 
       <div class="has-text-centered level-right">
         <p id="pphName" class="title lato" style="height: 30px;"></p>
-      </div>
+      </div> 
     </nav>
     <hr>
   </div>
 </section>
 
+
 <!-- <div class="embed-responsive embed-responsive-16by9"> 
-     <div class="embed-responsive embed-responsive-4by3">
+     <div class="embed-responsive embed-responsive-4by3"> change
 
   <app-dashboard-selected [selectedId]="idDashboard" class="embed-responsive-item"></app-dashboard-selected>
 
