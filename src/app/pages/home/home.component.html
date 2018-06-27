@@ -1,27 +1,42 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 <app-headbar></app-headbar>
+
 <section class="section">
   <div class="container">
-    <div class="heading animated fadeIn">
-      <h1 class="title">Dashboard</h1>
-    </div>
-    <br>
+    <!-- <div class="heading animated fadeIn">
+    </div> -->
+    
     <nav class="level">
+
       <div class="select level-left">
-        <select id="active-panel" (change)="valueChange($event)" onchange="console.log(this.options[this.selectedIndex].text); console.log('onchange on select panel dispair'); return false;">
+        <select id="active-panel" (change)="valueChange($event)" onchange="ga('send', 'event', 'visualization', 'panel', this.options[this.selectedIndex].text); console.log(this.options[this.selectedIndex].text); console.log('onchange on select panel dispair'); return false;">
           <option *ngFor="let dashboard of dashboards" [ngValue]="dashboard" [value]="dashboard.id">
             {{ dashboard.name }}
           </option>
         </select>
       </div>
+          <p id="pphMsg" class="title lato" style="height: 30px;" ></p>
+
       <div class="has-text-centered level-right">
         <p id="pphName" class="title lato" style="height: 30px;"></p>
-      </div>
+      </div> 
     </nav>
     <hr>
   </div>
 </section>
-<div class="embed-responsive embed-responsive-16by9">
-  <app-dashboard-selected [selectedId]="idDashboard"></app-dashboard-selected>
-</div>
-<app-footer></app-footer>
+
+
+<!-- <div class="embed-responsive embed-responsive-16by9"> 
+     <div class="embed-responsive embed-responsive-4by3"> change
+
+  <app-dashboard-selected [selectedId]="idDashboard" class="embed-responsive-item"></app-dashboard-selected>
+
+</div> -->
+
+ <div class="intrinsic-container intrinsic-container-4x3" *ngIf="dashboards.length > 0">
+    <app-dashboard-selected [selectedId]="idDashboard" ></app-dashboard-selected>
+</div> 
+
+
+
+

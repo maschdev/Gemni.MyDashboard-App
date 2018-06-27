@@ -41,6 +41,13 @@
               </p>
             </div>
 
+            <div class="column">
+              <p class="control">
+                <input class="input" type="text" placeholder="Empresa" formControlName="company">
+                <span class="tag is-danger" *ngIf="!form.controls.company.valid && !form.controls.company.pristine">Empresa inválida</span>
+              </p>
+            </div>
+
           </div>
         </div>
 
@@ -92,4 +99,3 @@
 
   </div>
 </section>
-<app-footer></app-footer>

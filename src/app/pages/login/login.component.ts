@@ -4,6 +4,7 @@ import { CustomValidator } from '../../validators/custom.validator';
 import { DataService } from '../../services/data.service';
 import { Ui } from '../../utils/ui';
 import { Router } from '@angular/router';
+import { EILSEQ } from 'constants';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ export class LoginPageComponent implements OnInit {
 
   public form: FormGroup;
   public errors: any[] = [];
+  public email: any;
 
   constructor(
     private fb: FormBuilder,
@@ -37,12 +39,12 @@ export class LoginPageComponent implements OnInit {
       ])]
     });
 
-    var token = localStorage.getItem('mydb.token');
+    let token = localStorage.getItem('mydb.token');
 
     if(token){
       
       var role = localStorage.getItem('mydb.role');
-      if(role == '2')
+      if(role === '2')
       {
         this.router.navigateByUrl('/home');
       }
@@ -54,8 +56,7 @@ export class LoginPageComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {  }
 
   checkEmail() {
     this.ui.lock('usernameControl');
@@ -66,10 +67,24 @@ export class LoginPageComponent implements OnInit {
   }
 
   showModal() {
+    this.email = this.form.value.username;
     this.ui.setActive('modal');
   }
 
-  hideModal() {
+  hideModal(type) {
+
+
+    if(type === 1)
+    {
+      this.ds.resetEmail(this.email)
+        .subscribe(result => {
+           alert('Solicitação enviada, verifiquei a sua caixa de email');
+        },
+        error => {
+          this.errors = JSON.parse(error._body).errors;
+        });
+    }
+
     this.ui.setInactive('modal');
   }
 
@@ -82,7 +97,7 @@ export class LoginPageComponent implements OnInit {
             localStorage.setItem('mydb.role', JSON.stringify(result.user.profile));
 
             var role = localStorage.getItem('mydb.role'); 
-            if(role == '2')
+            if(role === '2')
             {
               this.router.navigateByUrl('/home');
             }
@@ -94,8 +109,6 @@ export class LoginPageComponent implements OnInit {
           error => {
             this.errors = JSON.parse(error._body).errors;
         });
-
   }
-
   
 }
