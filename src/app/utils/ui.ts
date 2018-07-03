@@ -18,8 +18,4 @@ export class Ui{
         document.getElementById(element).classList.remove('is-active');
       };
 
-      reset(element){
-        //document.getElementById(element). = '';
-      };
-
     };

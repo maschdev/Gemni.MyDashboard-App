@@ -20,12 +20,15 @@ import { ClientListComponent } from './components/shared/client-list/client-list
 // Extern components
 import { EditableTableModule } from 'ng-editable-table/editable-table/editable-table.module';
 
-//Pages
+// Pages
 import { LoginPageComponent } from './pages/login/login.component';
 import { HomePageComponent } from './pages/home/home.component';
 import { ControlComponent } from './pages/control/control.component';
 import { ClientDashboardsComponent } from './pages/client-dashboards/client-dashboards.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { PasswordComponent } from './pages/password/password.component';
+import { NullPageComponent } from './pages/null-page/null-page.component';
+
 
 // Services
 import {AuthService } from './services/auth.service';
@@ -48,7 +51,9 @@ import { PowerBiPipe } from './pipes/powerbi.pipe';
     ControlComponent,
     ClientListComponent,
     ClientDashboardsComponent,
-    RegisterComponent
+    RegisterComponent,
+    PasswordComponent,
+    NullPageComponent
   ],
   imports: [
     BrowserModule,

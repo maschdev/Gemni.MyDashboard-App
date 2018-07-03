@@ -15,14 +15,7 @@ export class RegisterComponent implements OnInit {
 
   public form: FormGroup;
   public id: any;
-  public name: string;
-  public document: string;
-  public phone: string;
-  public email: string;
   public errors: any[] = [];
-  private client: any;
-
-  //private sub: any;
 
   constructor(
     private fb: FormBuilder,
@@ -64,13 +57,19 @@ export class RegisterComponent implements OnInit {
           Validators.required
         ])],
 
-      lastname: ['',
+        corporatename: ['',
         Validators.compose([
           Validators.minLength(3),
           Validators.maxLength(50),
           Validators.required
         ])],
 
+        tradename: ['',
+        Validators.compose([
+          Validators.minLength(3),
+          Validators.maxLength(50),
+          Validators.required
+        ])],
 
       document: ['',
         Validators.compose([
@@ -97,7 +96,8 @@ export class RegisterComponent implements OnInit {
 
           this.form.controls["id"].setValue(result.data.id);
           this.form.controls["firstname"].setValue(result.data.firstName);
-          this.form.controls["lastname"].setValue(result.data.lastName);
+          this.form.controls["corporatename"].setValue(result.data.corporateName);
+          this.form.controls["tradename"].setValue(result.data.tradeName);
           this.form.controls["document"].setValue(result.data.document);
           this.form.controls["email"].setValue(result.data.email);
           this.form.controls["phone"].setValue(result.data.phone);
