@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  envName: 'avante'
+  //Imagens
+  logon:'/assets/images/avante/logon.png'
 };
