@@ -14,21 +14,9 @@ export class SubMenuComponent implements OnInit {
   constructor(private router: Router) {
 
     var user = JSON.parse(localStorage.getItem('mydb.user'));
+    console.log(user);
 
     if (user) {
-			console.log(user);
-			if(ga){
-				// Sends an event hit for the tracker named "myTracker" with the
-				// following category, action, and label, and sets the nonInteraction
-				// field value to true.
-				console.log('sub-menu component - before analytics dispair');
-				console.log('send', 'event', 'user', 'active', '{{user}}');
-				ga('send', 'event', 'user', 'active', '{{user}}', {
-					nonInteraction: true
-				});
-				console.log('sub-menu component - after analytics dispair');
-      }
-
       this.user = user.name;
       this.role = JSON.parse(localStorage.getItem('mydb.role'));
     }
