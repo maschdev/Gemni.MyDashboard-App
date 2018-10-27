@@ -1,17 +1,5 @@
 <script>
-  if(ga){
-    // Sends an event hit for the tracker named "myTracker" with the
-    // following category, action, and label, and sets the nonInteraction
-    // field value to true.
-    console.log('sub-menu component - before analytics dispair');
-    console.log('send', 'event', 'user', 'active', '{{user}}');
-    ga('send', 'event', 'user', 'active', '{{user}}', {
-      nonInteraction: true
-    });
-    console.log('sub-menu component - after analytics dispair');
-  }else{
-    console.warn('no script found');
-  }
+  gtag('event', 'user', {'event_category': 'load','event_label': {{user}},'value': 1,'non_interaction': true});
 </script>
 <div class="nav-right nav-menu">
     <a class="nav-item">Bem vindo, {{user}}</a>
