@@ -1,5 +1,5 @@
-<script>
-  if(ga){
+<div class="nav-right nav-menu">
+  <script type="text/javascript">
     // Sends an event hit for the tracker named "myTracker" with the
     // following category, action, and label, and sets the nonInteraction
     // field value to true.
@@ -9,12 +9,8 @@
       nonInteraction: true
     });
     console.log('sub-menu component - after analytics dispair');
-  }else{
-    console.warn('no script found');
-  }
-</script>
-<div class="nav-right nav-menu">
-    <a class="nav-item">Bem vindo, {{user}}</a>
+  </script>
+  <a class="nav-item">Bem vindo, {{user}}</a>
   <a routerLink="/control" *ngIf="role != 2 " class="nav-item">Controle</a>
   <!-- <a routerLink="/" class="nav-item">Meu Perfil</a> -->
   <span class="nav-item">
