@@ -1,31 +1,32 @@
 <section class="hero is-primary is-fullheight">
   <div class="hero-body">
-    <div class="container has-text-centered">
-      
-        <img class="img-responsive" src="/assets/images/logon.png" width="220" height="28">
-        <br>
+    <div class="container has-text-centered">     
+      <img class="img-responsive" src="{{environment.logon}}" width="220" height="28">
+      <br>
 
       <div class="columns">
         <div class="column is-half is-offset-one-quarter">
 
-        <div class="notification is-danger" *ngIf="errors.length > 0" >
-          <ul>
-              <li *ngFor="let error of errors" >{{error.message}}</li>
-          </ul>
-        </div>  
+          <div class="notification is-danger" *ngIf="errors.length > 0">
+            <ul>
+              <li *ngFor="let error of errors">{{error.message}}</li>
+            </ul>
+          </div>
 
           <form [formGroup]="form">
             <p class="field control has-icons-left" id="usernameControl">
-              <input class="input is-midium" [ngClass]="{'is-danger': (!form.controls.username.valid && !form.controls.username.pristine)}" (blur)="checkEmail()"
-                type="email" placeholder="E-mail" formControlName="username" />
+              <input class="input is-midium" [ngClass]="{'is-danger': (!form.controls.username.valid && !form.controls.username.pristine)}"
+                (blur)="checkEmail()" type="email" placeholder="E-mail" formControlName="username" />
               <span class="icon is-small is-left"><i class="fa fa-envelope"></i></span>
-              <span class="tag is-danger" *ngIf="!form.controls.username.valid && !form.controls.username.pristine">Usuário inválido</span>
+              <span class="tag is-danger" *ngIf="!form.controls.username.valid && !form.controls.username.pristine">Usuário
+                inválido</span>
             </p>
             <p class="field control has-icons-left">
               <input class="input is-midium is-loading" [ngClass]="{'is-danger': (!form.controls.password.valid && !form.controls.password.pristine)}"
                 type="password" placeholder="Senha" formControlName="password" />
               <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
-              <span class="tag is-danger" *ngIf="!form.controls.password.valid && !form.controls.password.pristine">Senha inválida</span>
+              <span class="tag is-danger" *ngIf="!form.controls.password.valid && !form.controls.password.pristine">Senha
+                inválida</span>
             </p>
             <p>
               <button (click)="submit()" class="button is-primary is-inverted is-outlined is-midium is-fullwidth" [disabled]="!form.valid">ENTRAR</button>

@@ -21,11 +21,12 @@
         "styles.css"
       ],
       "scripts": [],
-      "environments": {
-        "source": "environments/environment.ts",
-        "dev": "environments/environment.ts",
+      "environmentSource": "environments/environment.ts",   
+      "environments": {                                     
+        "dev": "environments/environment.dev.ts",
+        "avante": "environments/environment.avante.ts",
         "prod": "environments/environment.prod.ts"
-      }
+      }                                                     
     }
   ],
   "e2e": {
